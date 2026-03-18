@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Fluxo">
 <meta name="theme-color" content="#185FA5">
-<title>Terapeuta Financeiro</title>
+<title>Contas do Casal</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -24,37 +24,36 @@
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   .app { max-width: 980px; margin: 0 auto; padding: 16px; }
 
-  /* Login */
   .login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
   .login-card { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 40px 32px; width: 100%; max-width: 380px; text-align: center; }
   .login-logo { font-size: 36px; margin-bottom: 12px; }
   .login-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-  .login-sub { font-size: 14px; color: var(--text2); margin-bottom: 32px; line-height: 1.5; }
+  .login-sub { font-size: 14px; color: var(--text2); margin-bottom: 8px; line-height: 1.5; }
+  .login-invite-notice { font-size: 13px; background: var(--green-light); color: var(--green); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 24px; font-weight: 500; }
   .btn-google { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 12px 20px; background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.12s; }
   .btn-google:hover { background: var(--surface2); }
-  .btn-google svg { flex-shrink: 0; }
 
-  /* Header */
   .header { display: flex; align-items: center; justify-content: space-between; padding: 12px 0 16px; gap: 12px; flex-wrap: wrap; }
   .header-left { display: flex; align-items: center; gap: 10px; }
   .header-title { font-size: 18px; font-weight: 700; }
   .header-right { display: flex; align-items: center; gap: 8px; }
-  .avatar { width: 32px; height: 32px; border-radius: 50%; border: 0.5px solid var(--border2); cursor: pointer; }
-  .avatar-placeholder { width: 32px; height: 32px; border-radius: 50%; background: var(--blue-light); color: var(--blue); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; border: 0.5px solid var(--border2); }
+  .avatar-placeholder { width: 32px; height: 32px; border-radius: 50%; background: var(--blue-light); color: var(--blue); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
 
-  /* Workspace */
-  .ws-bar { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; flex-wrap: wrap; }
+  /* Workspace bar */
+  .ws-bar { background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 16px; }
+  .ws-bar-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
   .ws-name { font-size: 14px; font-weight: 600; flex: 1; }
   .ws-members { font-size: 12px; color: var(--text2); }
-  .ws-share-input { border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 6px 10px; font-size: 13px; flex: 1; min-width: 160px; color: var(--text); background: var(--bg); }
+  .ws-share-row { display: flex; align-items: center; gap: 8px; background: var(--surface2); border-radius: var(--radius-sm); padding: 8px 12px; }
+  .ws-share-link { font-size: 12px; color: var(--text2); flex: 1; word-break: break-all; }
+  .ws-share-hint { font-size: 11px; color: var(--text3); margin-top: 6px; }
 
-  /* Sync indicator */
   .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; }
   .sync-dot.syncing { background: var(--amber); animation: pulse 1s infinite; }
   .sync-dot.error { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-  /* Buttons */
   .btn { padding: 7px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; border: 0.5px solid var(--border2); background: var(--surface); color: var(--text2); transition: all 0.12s; white-space: nowrap; }
   .btn:hover { background: var(--surface2); }
   .btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
@@ -65,12 +64,10 @@
   .btn.danger { color: var(--red); border-color: #F7C1C1; background: var(--red-light); }
   .btn.sm { padding: 4px 10px; font-size: 12px; }
 
-  /* Tabs */
   .tabs { display: flex; gap: 3px; background: var(--surface2); border-radius: var(--radius); padding: 4px; margin-bottom: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .tab { padding: 7px 16px; border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; border: none; background: none; color: var(--text2); font-weight: 500; transition: all 0.15s; white-space: nowrap; }
   .tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-  /* Summary */
   .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 16px; }
   .sum-card { background: var(--surface); border-radius: var(--radius); padding: 12px 14px; border: 0.5px solid var(--border); }
   .sum-label { font-size: 10px; color: var(--text2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -78,22 +75,19 @@
   .sum-val.pos { color: var(--green); } .sum-val.neg { color: var(--red); }
   .sum-val.neu { color: var(--blue); } .sum-val.warn { color: var(--amber); }
 
-  /* Bal row */
   .bal-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; flex-wrap: wrap; }
   .bal-row label { font-size: 13px; font-weight: 500; white-space: nowrap; }
   .bal-row input { border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 6px 10px; font-size: 14px; width: 140px; color: var(--text); background: var(--bg); }
 
-  /* Month nav */
   .month-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
   .nav-btn { background: var(--surface); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 5px 14px; cursor: pointer; font-size: 14px; color: var(--text); }
   .nav-btn:hover { background: var(--surface2); }
   .month-title { font-size: 16px; font-weight: 600; min-width: 150px; }
   .add-btns { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
 
-  /* Calendar */
   .cal-wrap { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); overflow: hidden; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
-  .day-head { background: var(--surface2); padding: 6px 0; text-align: center; font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 0.5px solid var(--border); }
+  .day-head { background: var(--surface2); padding: 6px 0; text-align: center; font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; border-bottom: 0.5px solid var(--border); }
   .day-cell { min-height: 80px; padding: 5px; border-right: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); cursor: pointer; transition: background 0.1s; }
   .day-cell:nth-child(7n) { border-right: none; }
   .day-cell:hover { background: var(--surface2); }
@@ -106,12 +100,11 @@
   .pill.done { opacity: 0.5; text-decoration: line-through; }
   .pill .rec-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); flex-shrink: 0; display: inline-block; }
 
-  /* Flow */
   .flow-section { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); overflow: hidden; margin-bottom: 16px; }
   .flow-header { padding: 12px 16px; border-bottom: 0.5px solid var(--border); font-size: 14px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
   canvas#flowChart { display: block; width: 100%; }
   .flow-table { width: 100%; border-collapse: collapse; }
-  .flow-table th { font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.4px; padding: 8px 12px; border-bottom: 0.5px solid var(--border); text-align: left; background: var(--surface2); }
+  .flow-table th { font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; padding: 8px 12px; border-bottom: 0.5px solid var(--border); text-align: left; background: var(--surface2); }
   .flow-table td { padding: 8px 12px; font-size: 12px; border-bottom: 0.5px solid var(--border); }
   .flow-table tr:last-child td { border-bottom: none; }
   .flow-table tr.warning td { background: var(--amber-light); }
@@ -121,7 +114,6 @@
   .tag.in { background: var(--green-light); color: var(--green); }
   .tag.out { background: var(--blue-light); color: var(--blue); }
 
-  /* Recurring */
   .rec-toggle-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--purple-light); border-radius: var(--radius-sm); cursor: pointer; border: 0.5px solid var(--purple-mid); margin-bottom: 14px; }
   .rec-toggle-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--purple); cursor: pointer; }
   .rec-toggle-row label { font-size: 13px; font-weight: 500; color: var(--purple); cursor: pointer; }
@@ -136,8 +128,7 @@
   .freq-badge.in { background: var(--green-light); color: var(--green); }
   .freq-badge.out { background: var(--blue-light); color: var(--blue); }
 
-  /* Overlay / Modal */
-  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: flex-start; justify-content: center; z-index: 200; padding: 24px 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: flex-start; justify-content: center; z-index: 200; padding: 24px 16px; overflow-y: auto; }
   .modal { background: var(--surface); border-radius: var(--radius); padding: 20px; width: 360px; max-width: 100%; margin: auto; }
   .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 18px; }
   .field { margin-bottom: 12px; }
@@ -146,7 +137,7 @@
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
 
   .det-section { margin-bottom: 12px; }
-  .det-section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text3); margin-bottom: 6px; }
+  .det-section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
   .det-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--border); flex-wrap: wrap; }
   .det-item:last-child { border-bottom: none; }
   .det-name { font-size: 13px; flex: 1; min-width: 80px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -155,33 +146,28 @@
   .det-done { opacity: 0.5; text-decoration: line-through; }
   .det-footer { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--border); }
 
-  /* Loading */
-  .loading { display: flex; align-items: center; justify-content: center; min-height: 200px; }
-  .spinner { width: 32px; height: 32px; border: 3px solid var(--border2); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Install banner */
   .install-banner { display: none; background: var(--blue); color: #fff; padding: 10px 16px; border-radius: var(--radius); margin-bottom: 16px; align-items: center; gap: 12px; font-size: 13px; }
   .install-banner.show { display: flex; }
-  .install-banner button { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .install-banner button { background: rgba(255,255,255,0.2); border: none; color: #fff; padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; font-size: 12px; font-weight: 500; }
 
+  .spinner { width: 32px; height: 32px; border: 3px solid var(--border2); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
   .hidden { display: none !important; }
-  @media(max-width:600px){ .summary{grid-template-columns:repeat(2,1fr)} .day-cell{min-height:55px;padding:4px} .day-head{font-size:9px} }
+  @media(max-width:600px){ .summary{grid-template-columns:repeat(2,1fr)} .day-cell{min-height:55px;padding:4px} }
 </style>
 </head>
 <body>
 
-<!-- Loading -->
 <div id="loadingScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh">
   <div class="spinner"></div>
 </div>
 
-<!-- Login -->
 <div id="loginScreen" class="login-screen hidden">
   <div class="login-card">
     <div class="login-logo">💰</div>
-    <div class="login-title">Terapeuta Financeiro</div>
-    <div class="login-sub">Controle de fluxo de caixa compartilhado em tempo real</div>
+    <div class="login-title">Contas do Casal</div>
+    <div class="login-sub" id="loginSub">Controle financeiro do casal, em tempo real</div>
+    <div class="login-invite-notice hidden" id="inviteNotice">🔗 Você foi convidado para um espaço compartilhado. Entre com o Google para acessar.</div>
     <button class="btn-google" id="btnGoogle">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
       Entrar com Google
@@ -189,14 +175,12 @@
   </div>
 </div>
 
-<!-- Main app -->
 <div id="mainApp" class="app hidden">
-
   <div class="header">
     <div class="header-left">
       <span style="font-size:22px">💰</span>
       <div>
-        <div class="header-title">Terapeuta Financeiro</div>
+        <div class="header-title">Contas do Casal</div>
         <div style="font-size:11px;color:var(--text2);display:flex;align-items:center;gap:5px">
           <span class="sync-dot" id="syncDot"></span>
           <span id="syncLabel">Sincronizado</span>
@@ -209,20 +193,25 @@
     </div>
   </div>
 
-  <!-- Install banner (iOS) -->
   <div class="install-banner" id="installBanner">
-    <span style="flex:1">Instale o app: toque em <strong>Compartilhar</strong> → <strong>Adicionar à Tela de Início</strong></span>
+    <span style="flex:1">Instale: toque em <strong>Compartilhar</strong> → <strong>Adicionar à Tela de Início</strong></span>
     <button id="installClose">Fechar</button>
   </div>
 
   <!-- Workspace bar -->
   <div class="ws-bar">
-    <div style="flex:1">
-      <div class="ws-name" id="wsName">Meu espaço</div>
-      <div class="ws-members" id="wsMembers"></div>
+    <div class="ws-bar-top">
+      <div style="flex:1">
+        <div class="ws-name" id="wsName">Meu espaço</div>
+        <div class="ws-members" id="wsMembers"></div>
+      </div>
     </div>
-    <input type="email" class="ws-share-input" id="shareEmail" placeholder="E-mail para compartilhar">
-    <button class="btn sm primary" id="btnShare">Compartilhar</button>
+    <div class="ws-share-row">
+      <span style="font-size:12px;font-weight:500;color:var(--text2);white-space:nowrap">🔗 Link de acesso:</span>
+      <span class="ws-share-link" id="wsShareLink">—</span>
+      <button class="btn sm primary" id="btnCopyLink">Copiar</button>
+    </div>
+    <div class="ws-share-hint">Qualquer pessoa com este link entra diretamente no seu espaço ao fazer login com o Google.</div>
   </div>
 
   <div class="tabs">
@@ -244,7 +233,6 @@
     <div class="sum-card"><div class="sum-label">Dias críticos</div><div class="sum-val warn" id="s-crit">0</div></div>
   </div>
 
-  <!-- Calendar -->
   <div id="tab-calendar">
     <div class="month-nav">
       <button class="nav-btn" id="prev">&#8592;</button>
@@ -258,7 +246,6 @@
     <div class="cal-wrap"><div class="cal-grid" id="calGrid"></div></div>
   </div>
 
-  <!-- Flow -->
   <div id="tab-flow" class="hidden">
     <div class="month-nav">
       <button class="nav-btn" id="prev2">&#8592;</button>
@@ -280,7 +267,6 @@
     </div>
   </div>
 
-  <!-- Recurring -->
   <div id="tab-recurring" class="hidden">
     <div class="flow-section">
       <div class="flow-header">
@@ -356,17 +342,16 @@
   </div>
 </div>
 
-<!-- Firebase SDKs -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, arrayUnion, collection, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, onSnapshot, arrayUnion } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVK__LzvRopRRAzTaHGcI2gYIMtiBVwak",
-  authDomain: "terapeuta-financeiro.firebaseapp.com",
-  projectId: "terapeuta-financeiro",
-  storageBucket: "terapeuta-financeiro.firebasestorage.app",
+  authDomain: "contas-do-casal.firebaseapp.com",
+  projectId: "contas-do-casal",
+  storageBucket: "contas-do-casal.firebasestorage.app",
   messagingSenderId: "842310373154",
   appId: "1:842310373154:web:34674ec0b0e04b1376df7b"
 };
@@ -375,44 +360,43 @@ const fbApp = initializeApp(firebaseConfig);
 const auth = getAuth(fbApp);
 const db = getFirestore(fbApp);
 
-// ── State ──────────────────────────────────────────────────
 const MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const DAYS_SHORT=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const FREQ_LABEL={monthly:'Mensal',biweekly:'Quinzenal',weekly:'Semanal'};
 
 let cur=new Date(); cur.setDate(1);
-let records=[];
-let startBal=0;
-let wsId=null;
-let wsData={};
-let currentUser=null;
-let unsubscribe=null;
-let selectedDay=null;
-let activeTab='calendar';
-let pendingDel=null;
+let records=[], wsId=null, wsData={}, currentUser=null, unsubListener=null;
+let selectedDay=null, activeTab='calendar', pendingDel=null;
 
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const fmt=v=>'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtN=v=>parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-// ── Sync indicator ─────────────────────────────────────────
-function setSyncing(){ document.getElementById('syncDot').className='sync-dot syncing'; document.getElementById('syncLabel').textContent='Salvando...'; }
-function setSynced(){ document.getElementById('syncDot').className='sync-dot'; document.getElementById('syncLabel').textContent='Sincronizado'; }
-function setSyncError(){ document.getElementById('syncDot').className='sync-dot error'; document.getElementById('syncLabel').textContent='Erro ao salvar'; }
+// ── URL invite param ──────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const inviteWsId = urlParams.get('ws');
+if(inviteWsId){
+  document.getElementById('inviteNotice').classList.remove('hidden');
+  document.getElementById('loginSub').classList.add('hidden');
+}
 
-// ── Auth ───────────────────────────────────────────────────
-document.getElementById('btnGoogle').addEventListener('click', async ()=>{
-  try{ await signInWithPopup(auth, new GoogleAuthProvider()); }
+// ── Sync indicator ────────────────────────────────────────
+const setSyncing=()=>{document.getElementById('syncDot').className='sync-dot syncing';document.getElementById('syncLabel').textContent='Salvando...';};
+const setSynced=()=>{document.getElementById('syncDot').className='sync-dot';document.getElementById('syncLabel').textContent='Sincronizado';};
+const setSyncError=()=>{document.getElementById('syncDot').className='sync-dot error';document.getElementById('syncLabel').textContent='Erro ao salvar';};
+
+// ── Auth ──────────────────────────────────────────────────
+document.getElementById('btnGoogle').addEventListener('click',async()=>{
+  try{ await signInWithPopup(auth,new GoogleAuthProvider()); }
   catch(e){ alert('Erro ao entrar: '+e.message); }
 });
+document.getElementById('btnLogout').addEventListener('click',()=>signOut(auth));
 
-document.getElementById('btnLogout').addEventListener('click', ()=>signOut(auth));
-
-onAuthStateChanged(auth, async user=>{
+onAuthStateChanged(auth,async user=>{
   document.getElementById('loadingScreen').classList.add('hidden');
   if(!user){
     currentUser=null; wsId=null;
-    if(unsubscribe){ unsubscribe(); unsubscribe=null; }
+    if(unsubListener){unsubListener();unsubListener=null;}
     document.getElementById('loginScreen').classList.remove('hidden');
     document.getElementById('mainApp').classList.add('hidden');
     return;
@@ -423,87 +407,101 @@ onAuthStateChanged(auth, async user=>{
 
   // Avatar
   const av=document.getElementById('userAvatar');
-  if(user.photoURL){ av.outerHTML=`<img src="${user.photoURL}" class="avatar" id="userAvatar" alt="">`; }
-  else { av.textContent=(user.displayName||user.email||'?')[0].toUpperCase(); }
+  if(user.photoURL) av.outerHTML=`<img src="${user.photoURL}" class="avatar" id="userAvatar" alt="">`;
+  else av.textContent=(user.displayName||user.email||'?')[0].toUpperCase();
 
-  // iOS install banner
+  // iOS install hint
   const isIos=/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-  const isStandalone=('standalone' in navigator)&&navigator.standalone;
-  if(isIos&&!isStandalone) document.getElementById('installBanner').classList.add('show');
+  if(isIos&&!navigator.standalone) document.getElementById('installBanner').classList.add('show');
 
-  await initWorkspace(user.uid);
+  // If invite link, join that workspace; otherwise use own
+  if(inviteWsId && inviteWsId !== user.uid){
+    await joinWorkspace(inviteWsId, user);
+    // Clean URL
+    window.history.replaceState({},'',window.location.pathname);
+  } else {
+    await initWorkspace(user.uid, user);
+  }
 });
 
-// ── Workspace ──────────────────────────────────────────────
-async function initWorkspace(uid2){
-  wsId=uid2;
+// ── Workspace ─────────────────────────────────────────────
+async function initWorkspace(id, user){
+  wsId=id;
   const wsRef=doc(db,'workspaces',wsId);
   const snap=await getDoc(wsRef);
   if(!snap.exists()){
     await setDoc(wsRef,{
-      members:[uid2],
-      memberEmails:{[uid2]:currentUser.email||''},
+      members:[user.uid],
+      memberNames:{[user.uid]: user.displayName||user.email||'Usuário'},
       records:[],
       startBal:0,
+      owner: user.uid,
       createdAt:new Date().toISOString()
     });
   }
   subscribeWorkspace();
 }
 
-function subscribeWorkspace(){
-  if(unsubscribe) unsubscribe();
+async function joinWorkspace(id, user){
+  wsId=id;
   const wsRef=doc(db,'workspaces',wsId);
-  unsubscribe=onSnapshot(wsRef, snap=>{
-    if(!snap.exists()) return;
+  const snap=await getDoc(wsRef);
+  if(!snap.exists()){
+    alert('Espaço não encontrado. O link pode estar incorreto.');
+    await initWorkspace(user.uid, user);
+    return;
+  }
+  // Add user to workspace
+  await updateDoc(wsRef,{
+    members: arrayUnion(user.uid),
+    [`memberNames.${user.uid}`]: user.displayName||user.email||'Usuário'
+  });
+  subscribeWorkspace();
+}
+
+function subscribeWorkspace(){
+  if(unsubListener){unsubListener();unsubListener=null;}
+  unsubListener=onSnapshot(doc(db,'workspaces',wsId),snap=>{
+    if(!snap.exists())return;
     wsData=snap.data();
     records=wsData.records||[];
-    startBal=wsData.startBal||0;
-    document.getElementById('startBalance').value=startBal;
+    document.getElementById('startBalance').value=wsData.startBal||0;
     renderWsBar();
     refresh();
     setSynced();
-  }, ()=>setSyncError());
+  },()=>setSyncError());
 }
 
 function renderWsBar(){
-  const emails=Object.values(wsData.memberEmails||{});
-  document.getElementById('wsMembers').textContent=emails.length>1?`Compartilhado com ${emails.filter(e=>e!==currentUser.email).join(', ')}`:'Apenas você';
+  const names=Object.values(wsData.memberNames||{});
+  document.getElementById('wsMembers').textContent=
+    names.length>1?`Compartilhado com: ${names.join(', ')}`:'Só você por enquanto';
+  const shareUrl=`${window.location.origin}${window.location.pathname}?ws=${wsId}`;
+  document.getElementById('wsShareLink').textContent=shareUrl;
 }
 
-document.getElementById('btnShare').addEventListener('click', async ()=>{
-  const email=document.getElementById('shareEmail').value.trim();
-  if(!email){ alert('Digite um e-mail.'); return; }
-  // Store invite — the other user will need to accept by entering the workspace ID
-  // Simplified: add email to workspace, they log in and find by email lookup
-  try{
-    setSyncing();
-    const wsRef=doc(db,'workspaces',wsId);
-    await updateDoc(wsRef,{
-      [`memberEmails.invite_${Date.now()}`]: email,
-      pendingInvites: arrayUnion(email)
-    });
-    // Store invite for target user
-    await setDoc(doc(db,'users',email.replace('@','_at_').replace('.','_dot_')),{
-      invitedToWorkspace: wsId,
-      invitedBy: currentUser.email
-    },{merge:true});
-    document.getElementById('shareEmail').value='';
-    alert(`Convite enviado para ${email}. Peça para ela entrar com o Google no app.`);
-    setSynced();
-  }catch(e){ setSyncError(); alert('Erro: '+e.message); }
+document.getElementById('btnCopyLink').addEventListener('click',()=>{
+  const shareUrl=`${window.location.origin}${window.location.pathname}?ws=${wsId}`;
+  navigator.clipboard.writeText(shareUrl).then(()=>{
+    const btn=document.getElementById('btnCopyLink');
+    btn.textContent='Copiado!';
+    setTimeout(()=>btn.textContent='Copiar',2000);
+  });
 });
 
-// ── Save to Firestore ──────────────────────────────────────
+// ── Save ──────────────────────────────────────────────────
 async function saveRecords(){
   setSyncing();
   try{
-    await updateDoc(doc(db,'workspaces',wsId),{records, startBal:parseFloat(document.getElementById('startBalance').value||0)});
-  }catch(e){ setSyncError(); throw e; }
+    await updateDoc(doc(db,'workspaces',wsId),{
+      records,
+      startBal:parseFloat(document.getElementById('startBalance').value||0)
+    });
+  }catch(e){setSyncError();throw e;}
 }
 
-// ── Data helpers ───────────────────────────────────────────
-function getMonthRecs(){ const y=cur.getFullYear(),m=cur.getMonth(); return records.filter(r=>r.date&&r.date.startsWith(`${y}-${String(m+1).padStart(2,'0')}`)); }
+// ── Data helpers ──────────────────────────────────────────
+function getMonthRecs(){const y=cur.getFullYear(),m=cur.getMonth();return records.filter(r=>r.date&&r.date.startsWith(`${y}-${String(m+1).padStart(2,'0')}`));}
 
 function buildDailyFlow(){
   const y=cur.getFullYear(),m=cur.getMonth(),last=new Date(y,m+1,0).getDate();
@@ -515,7 +513,7 @@ function buildDailyFlow(){
     const inAmt=dayRecs.filter(r=>r.type==='in').reduce((s,r)=>s+parseFloat(r.amount||0),0);
     const outAmt=dayRecs.filter(r=>r.type==='out').reduce((s,r)=>s+parseFloat(r.amount||0),0);
     running+=inAmt-outAmt;
-    return {d,ds,inAmt,outAmt,balance:running,recs:dayRecs};
+    return{d,ds,inAmt,outAmt,balance:running,recs:dayRecs};
   });
 }
 
@@ -530,8 +528,8 @@ function updateSummary(){
   const critDays=days.filter(d=>d.balance<0).length;
   document.getElementById('s-in').textContent=fmt(totIn);
   document.getElementById('s-out').textContent=fmt(totOut);
-  const be=document.getElementById('s-bal'); be.textContent=fmt(bal); be.className='sum-val '+(bal>=0?'pos':'neg');
-  const me=document.getElementById('s-min'); me.textContent=fmt(minBal); me.className='sum-val '+(minBal<0?'neg':minBal<500?'warn':'pos');
+  const be=document.getElementById('s-bal');be.textContent=fmt(bal);be.className='sum-val '+(bal>=0?'pos':'neg');
+  const me=document.getElementById('s-min');me.textContent=fmt(minBal);me.className='sum-val '+(minBal<0?'neg':minBal<500?'warn':'pos');
   document.getElementById('s-crit').textContent=critDays;
 }
 
@@ -539,21 +537,20 @@ function updateSummary(){
 function generateOccurrences(base,freq,months){
   const results=[];
   const start=new Date(base.date+'T12:00:00');
-  const end=new Date(start); end.setMonth(end.getMonth()+parseInt(months));
-  const recId=uid();
-  let c=new Date(start);
+  const end=new Date(start);end.setMonth(end.getMonth()+parseInt(months));
+  const recId=uid();let c=new Date(start);
   while(c<=end){
     results.push({...base,id:uid(),date:c.toISOString().slice(0,10),recurringId:recId,recurringFreq:freq});
     const next=new Date(c);
-    if(freq==='monthly') next.setMonth(next.getMonth()+1);
-    else if(freq==='biweekly') next.setDate(next.getDate()+15);
+    if(freq==='monthly')next.setMonth(next.getMonth()+1);
+    else if(freq==='biweekly')next.setDate(next.getDate()+15);
     else next.setDate(next.getDate()+7);
     c=next;
   }
   return results;
 }
 
-// ── Calendar ───────────────────────────────────────────────
+// ── Calendar ──────────────────────────────────────────────
 function renderCalendar(){
   const y=cur.getFullYear(),m=cur.getMonth();
   document.getElementById('monthTitle').textContent=MONTHS[m]+' '+y;
@@ -561,7 +558,7 @@ function renderCalendar(){
   const first=new Date(y,m,1).getDay(),last=new Date(y,m+1,0).getDate();
   const today=new Date();
   let html=DAYS_SHORT.map(d=>`<div class="day-head">${d}</div>`).join('');
-  for(let i=0;i<first;i++) html+=`<div class="day-cell empty"></div>`;
+  for(let i=0;i<first;i++)html+=`<div class="day-cell empty"></div>`;
   for(let d=1;d<=last;d++){
     const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isToday=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===d;
@@ -573,7 +570,7 @@ function renderCalendar(){
   document.querySelectorAll('[data-date]').forEach(el=>el.addEventListener('click',()=>openDayModal(el.dataset.date)));
 }
 
-// ── Flow chart ─────────────────────────────────────────────
+// ── Flow ──────────────────────────────────────────────────
 function renderFlow(){
   const days=buildDailyFlow();
   const sb=parseFloat(document.getElementById('startBalance').value||0);
@@ -585,22 +582,22 @@ function renderFlow(){
     const isToday=day.ds===todayStr,isCrit=day.balance<0,isWarn=!isCrit&&day.balance<500;
     const cls=isToday?'today-row':isCrit?'danger':isWarn?'warning':'';
     const tags=day.recs.map(r=>`<span class="tag ${r.type}">${r.name}${r.recurringId?' ↻':''}</span>`).join('');
-    const[yd,md,dd]=day.ds.split('-');
+    const[,md,dd]=day.ds.split('-');
     tbody+=`<tr class="${cls}"><td>${parseInt(dd)}/${parseInt(md)}</td><td>${tags||'—'}</td><td style="color:var(--green)">${day.inAmt>0?'+'+fmtN(day.inAmt):'—'}</td><td style="color:var(--blue)">${day.outAmt>0?'-'+fmtN(day.outAmt):'—'}</td><td style="font-weight:600;color:${day.balance<0?'var(--red)':day.balance<500?'var(--amber)':'var(--text)'}">${fmtN(day.balance)}</td></tr>`;
   });
-  if(!activeDays.length) tbody='<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">Nenhum lançamento este mês</td></tr>';
+  if(!activeDays.length)tbody='<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">Nenhum lançamento este mês</td></tr>';
   document.getElementById('flowBody').innerHTML=tbody;
 
   const canvas=document.getElementById('flowChart');
   const dpr=window.devicePixelRatio||1,W=canvas.parentElement.clientWidth||800,H=200;
-  canvas.width=W*dpr; canvas.height=H*dpr; canvas.style.width=W+'px'; canvas.style.height=H+'px';
-  const ctx=canvas.getContext('2d'); ctx.scale(dpr,dpr);
+  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
   const balances=[sb,...days.map(d=>d.balance)];
   const labels=['Início',...days.map(d=>d.d)];
   const minV=Math.min(...balances),maxV=Math.max(...balances),range=maxV-minV||1;
   const padL=54,padR=16,padT=20,padB=28,cW=W-padL-padR,cH=H-padT-padB;
   ctx.clearRect(0,0,W,H);
-  ctx.setLineDash([4,4]); ctx.strokeStyle='rgba(0,0,0,0.07)'; ctx.lineWidth=1;
+  ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=1;
   for(let i=0;i<=4;i++){const y2=padT+(cH/4)*i;ctx.beginPath();ctx.moveTo(padL,y2);ctx.lineTo(W-padR,y2);ctx.stroke();ctx.fillStyle='#9b9b94';ctx.font='9px -apple-system,sans-serif';ctx.textAlign='right';ctx.fillText(fmtN(maxV-(range/4)*i),padL-3,y2+3);}
   ctx.setLineDash([]);
   if(minV<0&&maxV>0){const zy=padT+(maxV/range)*cH;ctx.strokeStyle='rgba(163,45,45,0.35)';ctx.lineWidth=1;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(padL,zy);ctx.lineTo(W-padR,zy);ctx.stroke();ctx.setLineDash([]);}
@@ -633,12 +630,12 @@ function renderRecurringList(){
     const[fy,fm,fd]=g.first.split('-'),[ly,lm,ld]=g.last.split('-');
     return `<div class="rec-list-item"><div style="flex:1"><div class="rec-list-name">${g.name}</div><div class="rec-list-detail">${fmt(g.amount)} · ${g.count} ocorrências · ${parseInt(fd)}/${parseInt(fm)}/${fy} até ${parseInt(ld)}/${parseInt(lm)}/${ly}</div></div><span class="freq-badge ${g.type}">${FREQ_LABEL[g.freq]||g.freq}</span><button class="btn danger sm" data-del-rec="${g.id}">Excluir série</button></div>`;
   }).join('');
-  container.querySelectorAll('[data-del-rec]').forEach(b=>b.addEventListener('click',async ()=>{
+  container.querySelectorAll('[data-del-rec]').forEach(b=>b.addEventListener('click',async()=>{
     if(confirm('Excluir toda esta série?')){records=records.filter(r=>r.recurringId!==b.dataset.delRec);await saveRecords();refresh();}
   }));
 }
 
-// ── Modals ─────────────────────────────────────────────────
+// ── Modals ────────────────────────────────────────────────
 function openAddModal(type,date,isRec){
   document.getElementById('modalTitle').textContent='Novo lançamento';
   document.getElementById('f-type').value=type||'out';
@@ -647,8 +644,6 @@ function openAddModal(type,date,isRec){
   document.getElementById('f-date').value=date||'';
   document.getElementById('f-status').value='pending';
   document.getElementById('f-recurring').checked=!!isRec;
-  document.getElementById('f-freq').value='monthly';
-  document.getElementById('f-months').value='6';
   document.getElementById('recOptionsBlock').classList.toggle('hidden',!isRec);
   document.getElementById('f-date-lbl').textContent=isRec?'Data de início':'Data';
   updateModalType(type||'out');
@@ -679,7 +674,7 @@ async function saveRecord(){
   const months=document.getElementById('f-months').value;
   if(!name||!amt||!date){alert('Preencha todos os campos.');return;}
   const base={id:uid(),name,amount:parseFloat(amt),date,type,status,createdBy:currentUser.uid};
-  if(isRec) records.push(...generateOccurrences(base,freq,months));
+  if(isRec)records.push(...generateOccurrences(base,freq,months));
   else records.push(base);
   await saveRecords();
   document.getElementById('addModal').classList.add('hidden');
@@ -704,12 +699,11 @@ function renderDayModalBody(){
     const delAttrs=r.recurringId?`data-del="${r.id}" data-rec-id="${r.recurringId}" data-rec-date="${r.date}"`:`data-del="${r.id}"`;
     return `<div class="det-item"><span class="det-name${done?' det-done':''}">${r.name}${badge}</span><span class="det-amt ${r.type}${done?' det-done':''}">${r.type==='in'?'+':'-'}${fmtN(r.amount)}</span><button class="btn sm" data-toggle="${r.id}">${ml}</button><button class="btn sm danger" ${delAttrs}>Excluir</button></div>`;
   };
-  if(ins.length) html+=`<div class="det-section"><div class="det-section-title">Entradas</div>${ins.map(itemHtml).join('')}</div>`;
-  if(outs.length) html+=`<div class="det-section"><div class="det-section-title">Pagamentos</div>${outs.map(itemHtml).join('')}</div>`;
-  if(!recs.length) html='<p style="font-size:13px;color:var(--text3);padding:8px 0 14px">Nenhum lançamento neste dia.</p>';
+  if(ins.length)html+=`<div class="det-section"><div class="det-section-title">Entradas</div>${ins.map(itemHtml).join('')}</div>`;
+  if(outs.length)html+=`<div class="det-section"><div class="det-section-title">Pagamentos</div>${outs.map(itemHtml).join('')}</div>`;
+  if(!recs.length)html='<p style="font-size:13px;color:var(--text3);padding:8px 0 14px">Nenhum lançamento neste dia.</p>';
   document.getElementById('dayModalBody').innerHTML=html;
-
-  document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',async ()=>{
+  document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',async()=>{
     const r=records.find(x=>x.id===b.dataset.toggle);
     if(r){r.status=r.status==='done'?'pending':'done';await saveRecords();refresh();renderDayModalBody();}
   }));
@@ -717,17 +711,17 @@ function renderDayModalBody(){
     if(b.dataset.recId){
       pendingDel={id:b.dataset.del,recId:b.dataset.recId,recDate:b.dataset.recDate};
       document.getElementById('delRecModal').classList.remove('hidden');
-    } else {
+    }else{
       if(confirm('Excluir?')){records=records.filter(x=>x.id!==b.dataset.del);saveRecords();refresh();renderDayModalBody();}
     }
   }));
 }
 
-document.getElementById('delOnlyThis').addEventListener('click',async ()=>{
+document.getElementById('delOnlyThis').addEventListener('click',async()=>{
   if(pendingDel){records=records.filter(x=>x.id!==pendingDel.id);await saveRecords();refresh();renderDayModalBody();}
   document.getElementById('delRecModal').classList.add('hidden');pendingDel=null;
 });
-document.getElementById('delThisAndFuture').addEventListener('click',async ()=>{
+document.getElementById('delThisAndFuture').addEventListener('click',async()=>{
   if(pendingDel){records=records.filter(x=>!(x.recurringId===pendingDel.recId&&x.date>=pendingDel.recDate));await saveRecords();refresh();renderDayModalBody();}
   document.getElementById('delRecModal').classList.add('hidden');pendingDel=null;
 });
@@ -735,12 +729,12 @@ document.getElementById('delCancel').addEventListener('click',()=>{document.getE
 
 function refresh(){
   updateSummary();
-  if(activeTab==='calendar') renderCalendar();
-  else if(activeTab==='flow') renderFlow();
-  else if(activeTab==='recurring') renderRecurringList();
+  if(activeTab==='calendar')renderCalendar();
+  else if(activeTab==='flow')renderFlow();
+  else if(activeTab==='recurring')renderRecurringList();
 }
 
-// ── Wire up ────────────────────────────────────────────────
+// ── Events ────────────────────────────────────────────────
 document.getElementById('modalSave').addEventListener('click',saveRecord);
 document.getElementById('modalCancel').addEventListener('click',()=>document.getElementById('addModal').classList.add('hidden'));
 document.getElementById('dayClose').addEventListener('click',()=>document.getElementById('dayModal').classList.add('hidden'));
@@ -751,55 +745,26 @@ document.getElementById('btnAddOut').addEventListener('click',()=>openAddModal('
 document.getElementById('recAddIn').addEventListener('click',()=>openAddModal('in','',true));
 document.getElementById('recAddOut').addEventListener('click',()=>openAddModal('out','',true));
 document.getElementById('installClose').addEventListener('click',()=>document.getElementById('installBanner').classList.remove('show'));
-
-document.getElementById('startBalance').addEventListener('change',async ()=>{
-  if(!wsId) return;
-  startBal=parseFloat(document.getElementById('startBalance').value||0);
-  await updateDoc(doc(db,'workspaces',wsId),{startBal});
+document.getElementById('startBalance').addEventListener('change',async()=>{
+  if(!wsId)return;
+  await updateDoc(doc(db,'workspaces',wsId),{startBal:parseFloat(document.getElementById('startBalance').value||0)});
   refresh();
 });
-
 document.getElementById('prev').addEventListener('click',()=>{cur.setMonth(cur.getMonth()-1);refresh();});
 document.getElementById('next').addEventListener('click',()=>{cur.setMonth(cur.getMonth()+1);refresh();});
 document.getElementById('prev2').addEventListener('click',()=>{cur.setMonth(cur.getMonth()-1);refresh();});
 document.getElementById('next2').addEventListener('click',()=>{cur.setMonth(cur.getMonth()+1);refresh();});
-
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active'); activeTab=t.dataset.tab;
+  t.classList.add('active');activeTab=t.dataset.tab;
   document.getElementById('tab-calendar').classList.toggle('hidden',activeTab!=='calendar');
   document.getElementById('tab-flow').classList.toggle('hidden',activeTab!=='flow');
   document.getElementById('tab-recurring').classList.toggle('hidden',activeTab!=='recurring');
-  if(activeTab==='flow') renderFlow();
-  if(activeTab==='recurring') renderRecurringList();
+  if(activeTab==='flow')renderFlow();
+  if(activeTab==='recurring')renderRecurringList();
 }));
-
 ['addModal','dayModal'].forEach(id=>document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.classList.add('hidden');}));
-
-// Check pending invite for new users
-async function checkInvite(user){
-  try{
-    const key=user.email.replace('@','_at_').replace('.','_dot_');
-    const snap=await getDoc(doc(db,'users',key));
-    if(snap.exists()&&snap.data().invitedToWorkspace){
-      const inviteWsId=snap.data().invitedToWorkspace;
-      if(inviteWsId!==wsId){
-        const confirm2=confirm(`Você foi convidado para um espaço compartilhado. Deseja entrar?`);
-        if(confirm2){
-          wsId=inviteWsId;
-          const wsRef=doc(db,'workspaces',wsId);
-          await updateDoc(wsRef,{members:arrayUnion(user.uid),[`memberEmails.${user.uid}`]:user.email});
-          subscribeWorkspace();
-        }
-      }
-    }
-  }catch(e){}
-}
-
-// Override initWorkspace to also check invites
-const _origInit=initWorkspace;
-// initWorkspace already defined above, invite check runs after
-setTimeout(()=>{if(currentUser) checkInvite(currentUser);},2000);
 </script>
+<div style="text-align:center;padding:24px 0 8px;font-size:11px;color:#9b9b94;letter-spacing:0.3px">Desenvolvido por Vitor &amp; Natalia</div>
 </body>
 </html>
